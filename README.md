@@ -6,7 +6,7 @@
 
 ## English
 
-# 💰 Python Expense Tracker
+
 
 ![Expense Tracker Preview](screenshot.png)
 
