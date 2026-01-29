@@ -1,4 +1,335 @@
- ¡Listo! He creado un README.md completo para tu proyecto. 📄
+# 💰 Python Expense Tracker
+
+[English](#english) | [Español](#español)
+
+---
+
+## English
+
+# 💰 Python Expense Tracker
+
+![Expense Tracker Preview](screenshot.png)
+
+A web application developed with Django to track and manage personal expenses easily and efficiently.
+
+## 📋 Description
+
+**Expense Tracker** is a personal financial management tool that allows you to record, categorize, and analyze your daily expenses. The application provides an intuitive interface to keep detailed control of your personal finances.
+
+## ✨ Features
+
+- 📝 **Expense recording**: Add expenses with amount, category, date, and description
+- 👤 **User profiles**: Each user has their own profile with personalized balance
+- 📊 **Balance tracking**: View your current balance in real-time
+- 🏷️ **Categorization**: Organize your expenses by categories
+- 🔐 **Authentication system**: Secure registration and login
+- 📱 **Responsive interface**: Adaptive design for different devices
+
+## 🛠️ Technologies
+
+- **Backend**: Django 4.2.11
+- **Database**: SQLite3
+- **Frontend**: HTML, CSS (Django templates)
+- **Python**: 3.10 / 3.12
+
+## 📁 Project Structure
+
+```
+Python-Expense-tracker-master/
+│
+├── home/                      # Main app
+│   ├── migrations/            # Database migrations
+│   ├── templates/             # HTML templates
+│   │   ├── base.html         # Base template
+│   │   └── home.html         # Home page
+│   ├── admin.py              # Admin configuration
+│   ├── models.py             # Models (Profile, Expense)
+│   ├── views.py              # Views
+│   ├── urls.py               # App URLs
+│   └── tests.py              # Unit tests
+│
+├── project/                   # Project configuration
+│   ├── settings.py           # Django settings
+│   ├── urls.py               # Main URLs
+│   └── wsgi.py               # WSGI config
+│
+├── static/                    # Static files (CSS, JS, images)
+├── db.sqlite3                # SQLite database
+├── manage.py                 # Django management script
+└── requirements.txt          # Project dependencies
+```
+
+## 🚀 Installation and Setup
+
+### Prerequisites
+
+- Python 3.10 or higher
+- pip (Python package manager)
+- Anaconda (optional, but recommended)
+
+### Step 1: Clone or download the repository
+
+```bash
+git clone https://github.com/OpSigma80/expense-tracker.git
+cd expense-tracker
+```
+
+### Step 2: Create virtual environment (with Anaconda)
+
+```bash
+conda create -n ExpenseTracker python=3.10
+conda activate ExpenseTracker
+```
+
+Or with venv:
+
+```bash
+python -m venv venv
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
+```
+
+### Step 3: Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4: Configure environment variables
+
+Create a `.env` file in the root directory based on `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and add your SECRET_KEY:
+
+```
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+```
+
+### Step 5: Apply migrations
+
+```bash
+python manage.py migrate
+```
+
+### Step 6: Create superuser (admin)
+
+```bash
+python manage.py createsuperuser
+```
+
+Follow the instructions to create your administrator account.
+
+### Step 7: Run the server
+
+```bash
+python manage.py runserver
+```
+
+The application will be available at: `http://127.0.0.1:8000/`
+
+## 🎮 Usage
+
+### Application access
+
+1. **Home page**: `http://127.0.0.1:8000/`
+2. **Admin panel**: `http://127.0.0.1:8000/admin/`
+
+### Main features
+
+1. **Record an expense**:
+   - Enter the amount
+   - Select or create a category
+   - Add a description
+   - Save the record
+
+2. **View your balance**:
+   - Balance updates automatically
+   - View your total expenses
+
+3. **Manage expenses**:
+   - Edit existing expenses
+   - Delete records
+   - Filter by date or category
+
+## 🧪 Testing
+
+Run all tests:
+
+```bash
+python manage.py test
+```
+
+Run tests with coverage:
+
+```bash
+pip install coverage
+coverage run --source='.' manage.py test
+coverage report
+coverage html  # Generate HTML report
+```
+
+Expected results:
+```
+Found 6 test(s).
+Creating test database for alias 'default'...
+......
+Ran 6 tests in 7.842s
+OK
+```
+
+## 📊 Data Models
+
+### Profile (User Profile)
+- `user`: Django User (OneToOne)
+- `balance`: User's current balance
+- `expense`: Accumulated total expenses
+
+### Expense
+- `user`: User who recorded the expense
+- `amount`: Expense amount
+- `category`: Expense category
+- `description`: Optional description
+- `date`: Expense date
+
+## 🔧 Useful Commands
+
+### Project management
+
+```bash
+# Create new migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Run development server
+python manage.py runserver
+
+# Run server on specific port
+python manage.py runserver 8080
+
+# Run Django shell
+python manage.py shell
+
+# Collect static files
+python manage.py collectstatic
+```
+
+### Testing
+
+```bash
+# Run all tests
+python manage.py test
+
+# Run tests for specific app
+python manage.py test home
+
+# Run specific test
+python manage.py test home.tests.TestClassName
+```
+
+### Database
+
+```bash
+# Create database backup
+copy db.sqlite3 db_backup.sqlite3  # Windows
+cp db.sqlite3 db_backup.sqlite3     # Linux/Mac
+
+# View database structure
+python manage.py dbshell
+```
+
+## 🐛 Troubleshooting
+
+### Error: "Requested setting INSTALLED_APPS, but settings are not configured"
+
+**Solution**: Use `python manage.py test` instead of `python tests.py`
+
+### Error: Port in use
+
+**Solution**: 
+```bash
+# Windows
+netstat -ano | findstr :8000
+taskkill /PID <PID> /F
+
+# Linux/Mac
+lsof -ti:8000 | xargs kill -9
+
+# Or use another port
+python manage.py runserver 8080
+```
+
+### Migration errors
+
+**Solution**:
+```bash
+python manage.py migrate --run-syncdb
+```
+
+## 🔒 Security
+
+This project uses environment variables to protect sensitive information:
+
+- `SECRET_KEY` is stored in `.env` file (not included in repository)
+- `.env.example` provides a template for required variables
+- Never commit `.env` file to version control
+- Database file (`db.sqlite3`) is excluded from repository
+
+## 📝 Additional Notes
+
+- SQLite database (`db.sqlite3`) contains all data
+- Static files should be in the `static/` folder
+- HTML templates are in `home/templates/`
+- Project uses Django 4.2.11 (LTS)
+
+## 📄 License
+
+This project is licensed under the terms specified in the `LICENCE` file.
+
+## 🤝 Contributing
+
+Contributions are welcome. Please:
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/NewFeature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature/NewFeature`)
+5. Open a Pull Request
+
+## 📞 Support
+
+If you encounter any problems or have questions:
+- Review the troubleshooting section
+- Verify all dependencies are installed
+- Make sure you're using the correct virtual environment
+
+## 🌟 Acknowledgments
+
+Built with Django following best practices for web application development.
+
+---
+
+**Developed with ❤️ using Django**
+
+*Last updated: January 2026*
+
+---
+
+## Español
+
+![Expense Tracker Preview](screenshot.png)
+
+Una aplicación web desarrollada con Django para rastrear y gestionar gastos personales de manera sencilla y eficiente.
+
 
 Este documento incluye:
 
