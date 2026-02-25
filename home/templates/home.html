@@ -1,66 +1,70 @@
 {% extends 'base.html' %}
 
-
 {% block start %}
 
-<h2>Expense Tracker</h2>
+<div class="container">
+    <h2>Expense Tracker</h2>
 
-    <div class="container">
-      <h4>Your Balance</h4>
-      <h1 id="balance">$ {{profile.balance}}</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin-bottom: 20px; border-radius: 5px; background-color: {% if message.tags == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; color: {% if message.tags == 'success' %}#155724{% else %}#721c24{% endif %}; border: 1px solid {% if message.tags == 'success' %}#c3e6cb{% else %}#f5c6cb{% endif %};">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-      <div class="inc-exp-container">
+    <h4>Your Balance</h4>
+    <h1 id="balance">$ {{ profile.balance }}</h1>
+
+    <div class="inc-exp-container">
         <div>
-          <h4>Income</h4>
-          <p id="money-plus" class="money plus">+${{profile.income}}</p>
+            <h4>Income</h4>
+            <p id="money-plus" class="money plus">+${{ profile.income }}</p>
         </div>
         <div>
-          <h4>Expense</h4>
-          <p id="money-minus" class="money minus">-${{profile.expense}}</p>
+            <h4>Expense</h4>
+            <p id="money-minus" class="money minus">-${{ profile.expense }}</p>
         </div>
-      </div>
+    </div>
 
-      <h3>Add new transaction</h3>
-      <form id="form" method="POST">
+    <h3>Add new transaction</h3>
+    <form id="form" method="POST">
         {% csrf_token %}
         <div class="form-control">
-          <label for="text">Text</label>
-          <input type="text" required name="text" id="text" placeholder="Enter text..." />
+            <label for="text">Text</label>
+            <input type="text" required name="text" id="text" placeholder="Enter text..." />
         </div>
+        
         <div class="form-control">
-          <label for="amount"
-            >Amount <br />
-            (negative - expense, positive - income)</label
-          >
-          <input type="number" required name="amount" id="amount" placeholder="Enter amount..." />
+            <label for="amount">Amount</label>
+            <input type="number" step="0.01" required name="amount" id="amount" placeholder="0.00" />
         </div>
 
         <div class="form-control">
-          <label for="text">Text</label>
-          <select name="expense_type" required class="form-control">
-            <option value="Positive">Positive</option>
-            <option value="Negative">Negative</option>
-          </select>
+            <label for="expense_type">Type</label>
+            <select name="expense_type" required class="form-control">
+                <option value="positive">Positive (Income)</option>
+                <option value="negative">Negative (Expense)</option>
+            </select>
         </div>
-        <button class="btn" type="submit">Add transaction</button>
-      </form>
-      <h3>History</h3>
-      <ul id="list" class="list">
+        
+        <button class="btn" type="submit" style="margin-top: 10px;">Add transaction</button>
+    </form>
+
+    <h3>History</h3>
+    <ul id="list" class="list">
         {% for expense in expenses %}
-        {% if expense.expense_type == 'Positive' %}
-        <li class="plus">
-          {{expense.name}} <span>+${{expense.amount}}</span>
-        </li>
-        {% else %}
-        <li class="minus">
-          {{expense.name}} <span>-${{expense.amount}}</span>
-        </li>
-        {% endif %}
+            <li class="{% if expense.expense_type|lower == 'positive' %}plus{% else %}minus{% endif %}">
+                {{ expense.name }} 
+                <span>
+                    {% if expense.expense_type|lower == 'positive' %}+{% else %}-{% endif %}${{ expense.amount }}
+                </span>
+                <small style="display: block; color: #777; font-size: 10px;">{{ expense.created_at|date:"d M, Y H:i" }}</small>
+            </li>
+        {% empty %}
+            <p>No transactions yet.</p>
         {% endfor %}
-      </ul>
-    </div>
-    
-
-
+    </ul>
+</div>
 
 {% endblock %}

@@ -1,38 +1,31 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import *
+from django.contrib import messages
+from .models import Expense, Profile
+from decimal import Decimal, InvalidOperation
 
-# Create your views here.
 @login_required(login_url='/admin/login/')
 def home(request):
-    profile = Profile.objects.filter(user=request.user).first()
-    
-    # Si el usuario no tiene perfil, crear uno automáticamente
-    if not profile:
-        profile = Profile.objects.create(
-            user=request.user, 
-            balance=0, 
-            expense=0,
-            income=0  # ← Campo agregado
-        )
-    
-    expenses = Expense.objects.filter(user=request.user)
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    expenses = Expense.objects.filter(user=request.user).order_by('-created_at')
     
     if request.method == 'POST':
         text = request.POST.get('text')
-        amount = request.POST.get('amount')
+        amount_str = request.POST.get('amount')
         expense_type = request.POST.get('expense_type')
-        
-        expense = Expense(name=text, amount=amount, expense_type=expense_type, user=request.user)
-        expense.save()
-        
-        if expense_type == 'Positive':
-            profile.balance += float(amount)
-        else:
-            profile.expense += float(amount)
-            profile.balance -= float(amount)
-        profile.save()
+
+        try:
+            amount = Decimal(amount_str)
+            Expense.objects.create(
+                user=request.user,
+                name=text,
+                amount=amount,
+                expense_type=expense_type
+            )
+            messages.success(request, "¡Transacción guardada y balance actualizado!")
+        except (InvalidOperation, ValueError):
+            messages.error(request, "Error: El monto ingresado no es válido.")
+            
         return redirect('/')
     
-    context = {'profile': profile, 'expenses': expenses}
-    return render(request, 'home.html', context)
+    return render(request, 'home.html', {'profile': profile, 'expenses': expenses})
