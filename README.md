@@ -1,8 +1,8 @@
 
 
-### Archivo: `README.md` (Versión en Inglés)
+(Versión en Inglés)
 
-```markdown
+
 # FinTrack Pro 🚀
 **High-Performance Financial Management System**
 
@@ -30,60 +30,91 @@ This project has been architected to meet professional software standards:
 ## 🚀 Installation & Setup
 
 1. **Clone the repository:**
-   ```bash
+ 
    git clone [https://github.com/your-user/FinTrack-Pro.git](https://github.com/your-user/FinTrack-Pro.git)
 
-```
+
 
 2. **Environment Configuration:**
 Create a `.env` file in the root directory:
-```env
+env
 SECRET_KEY=your_secure_secret_key
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
 
-```
 
 
 3. **Database Setup:**
-```bash
+
 python manage.py makemigrations
 python manage.py migrate
 
-```
+
 
 
 4. **Run Server:**
-```bash
+
 python manage.py runserver
 
-```
-
-
-
----
 
 *Developed with a focus on scalability, data integrity, and security.*
 
-```
+(version Español)
+ FinTrack Pro 🚀
+**Sistema de Gestión Financiera de Alto Rendimiento**
 
----
+FinTrack Pro no es solo un seguidor de gastos; es una aplicación web robusta construida con **Django** que implementa estándares de industria para la integridad de datos financieros y seguridad de aplicaciones.
 
-### Pasos sugeridos en GitHub:
+## 🛡️ Características de Ingeniería (Muro de Acero)
 
-1.  **Rename Repository:** En la pestaña "Settings" de tu repo en GitHub, cámbiale el nombre a `FinTrack-Pro`.
-2.  **Update README:** Edita el archivo `README.md` y pega el contenido en inglés que te acabo de dar.
-3.  **About Section:** En la página principal de tu repo, a la derecha, hay una sección llamada "About". Pon esto:
-    > "Professional Financial Tracker built with Django, featuring event-driven architecture (Signals) and high-precision data handling."
+Este proyecto ha sido refactorizado para cumplir con estándares profesionales:
+
+- **Arquitectura Basada en Eventos (Signals):** El cálculo de balances no se hace en la vista. Se utiliza `django.db.models.signals` para desacoplar la lógica de negocio, asegurando que el perfil del usuario se actualice automáticamente ante cualquier cambio en las transacciones.
+- **Precisión Financiera:** Uso estricto de `DecimalField` en lugar de floats para evitar errores de redondeo binario, garantizando que cada centavo sea contabilizado correctamente.
+- **Seguridad y Blindaje:** - Gestión de variables de entorno mediante `python-decouple` para proteger llaves secretas y credenciales.
+    - Protección contra ataques XSS y CSRF configurada en el middleware.
+    - Validación de tipos de datos en múltiples capas (HTML5, Django Forms y Nivel de Base de Datos).
+- **UX Profesional:** Sistema de mensajería dinámica (`django.contrib.messages`) para feedback en tiempo real sobre el éxito o fallo de las operaciones.
+
+## 🛠️ Stack Tecnológico
+
+- **Backend:** Python 3.x / Django 4.2+
+- **Base de Datos:** SQLite (Desarrollo) / Compatible con PostgreSQL.
+- **Frontend:** HTML5, CSS3 (Custom Design con Google Fonts).
+- **Seguridad:** Python-Decouple, Dotenv.
+
+## 🚀 Instalación y Uso
+
+1. **Clonar el repositorio:**
+  
+   git clone [https://github.com/tu-usuario/Python-Expense-tracker-master.git](https://github.com/tu-usuario/Python-Expense-tracker-master.git)
 
 
 
----
+2. **Configurar el entorno:**
+Crea un archivo `.env` en la raíz con:
 
-### 🕸️ ¿Listo para el Proyecto 2 (Scraping)?
+SECRET_KEY=tu_llave_secreta
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
 
-Ahora sí, el Proyecto 1 está blindado, documentado y listo para presumir. 
 
-**Pásame el código de tu Scraper.** El scraping es un mundo fascinante donde "engañamos" a los servidores para obtener datos. ¿Es un script de Selenium que abre un navegador o es algo con BeautifulSoup que corre en segundo plano? ¡Súbelo y lo hacemos brillar!
 
-```
+
+3. **Ejecutar Migraciones:**
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+
+4. **Iniciar el servidor:**
+
+python manage.py runserver
+
+
+*Desarrollado con un enfoque en escalabilidad y seguridad de datos.*
+
+
+
