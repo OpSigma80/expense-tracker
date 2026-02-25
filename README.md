@@ -58,7 +58,7 @@ python manage.py runserver
 
 
 *Developed with a focus on scalability, data integrity, and security.*
-
+__________________________________________________________________________________________________________________________________________________________________________________________
 (version Español)
  FinTrack Pro 🚀
 **Sistema de Gestión Financiera de Alto Rendimiento**
