@@ -5,7 +5,6 @@
 
 # FinTrack Pro 🚀
 **High-Performance Financial Management System**
-![Dashboard] ("C:\Users\rovir\OneDrive\Pictures\Screenshots\Captura de pantalla 2026-02-25 094023.png")
 
 FinTrack Pro is not just a simple expense tracker; it is a robust web application built with **Django** that implements industry standards for financial data integrity and application security.
 
